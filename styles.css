@@ -19,9 +19,9 @@ body {
     width: 100%;
 }
 canvas {
-    border: 4px solid #aa541b;
+    border: 4px solid #480248;
     border-radius: 8px;
-    background-color: #a8c6f3;
+    background-color: #221616;
   }
 .btns {
     padding-top: 30px;
