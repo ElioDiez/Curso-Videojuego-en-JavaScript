@@ -12,11 +12,11 @@ const playerPosition = {
   x:undefined,
   y:undefined,
 };
-
 const exitPosition = {
   x:undefined,
   y:undefined,
 };
+let obstaclePositions = [];
 
 window.addEventListener('load',setCanvasSize);
 window.addEventListener('resize',setCanvasSize);
@@ -48,7 +48,8 @@ function startGame() {
   const mapColums = mapRows.map(row => row.trim().split(''));
  // console.log(map,mapRows,mapColums);
 
-  game.clearRect(0,0,canvasSize, canvasSize);
+ obstaclePositions =[]; 
+ game.clearRect(0,0,canvasSize, canvasSize);
 
   mapColums.forEach((row,rowI) => {
     row.forEach( (col,colI) =>{
@@ -68,6 +69,12 @@ function startGame() {
     exitPosition.y=posY;
 //    console.log({exitPosition});
   }
+  if (col=='X'){
+    obstaclePositions.push({
+      x: posX,
+      y: posY,
+    })
+  }
     }); 
   });
 movePlayer();
@@ -79,9 +86,20 @@ function movePlayer(){
   const exitColisionX = playerPosition.x.toFixed(3) == exitPosition.x.toFixed(3);
   const exitColisionY = playerPosition.y.toFixed(3) == exitPosition.y.toFixed(3);
   const exitColision = exitColisionX && exitColisionY;
+ 
   if (exitColision){
     console.log ('¡Lo lograstes!')
   }
+
+  const obstacleColision = obstaclePositions.find(obstacle =>{
+    const obstacleColisionX = obstacle.x.toFixed(3) == playerPosition.x.toFixed(3);
+    const obstacleColisionY = obstacle.y.toFixed(3) == playerPosition.y.toFixed(3);
+    const colision = obstacleColisionX && obstacleColisionY;
+    if (colision){
+    console.log ('¡Has chocado!')
+  } 
+  });
+ 
 }
 
   btnup.addEventListener('click',moveUp);
