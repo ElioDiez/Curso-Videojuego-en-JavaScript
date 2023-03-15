@@ -7,6 +7,7 @@ const btnright = document.querySelector('#right');
 
 let canvasSize;
 let elementSize;
+let level = 0;
 
 const playerPosition = {
   x:undefined,
@@ -43,7 +44,12 @@ function startGame() {
   game.font = elementSize + 'px Verdana';
   game.textAlign= 'end';
  
-  const map = maps[1];
+  const map = maps[level];
+  if(!map){
+    gameWin();
+    return
+  }
+
   const mapRows = map.trim().split('\n');
   const mapColums = mapRows.map(row => row.trim().split(''));
  // console.log(map,mapRows,mapColums);
@@ -88,7 +94,9 @@ function movePlayer(){
   const exitColision = exitColisionX && exitColisionY;
  
   if (exitColision){
-    console.log ('¡Lo lograstes!')
+    levelWin();
+    window.alert ('¡ENHORABUENA! Has llegado a casa sano y salvo. ¿Aceptas la siguiente misión?');
+    console.warn ('¡Lo lograstes!')
   }
 
   const obstacleColision = obstaclePositions.find(obstacle =>{
@@ -96,10 +104,26 @@ function movePlayer(){
     const obstacleColisionY = obstacle.y.toFixed(3) == playerPosition.y.toFixed(3);
     const colision = obstacleColisionX && obstacleColisionY;
     if (colision){
-    console.log ('¡Has chocado!')
+    console.warn ('¡Has chocado!')
+    levelColision();
   } 
   });
  
+}
+function levelColision(){
+  playerPosition.x=undefined;
+  playerPosition.y=undefined;
+  startGame();
+}
+function levelWin() {
+  console.log('Has pasado de nivel')
+  level ++;
+  startGame();
+}
+function gameWin(){
+  console.log('Has ganado')
+  window.alert('¡LO LOGRASTES! No hay más misiones, 👩‍🚀👨‍🚀💃🕺🎊🎊')
+
 }
 
   btnup.addEventListener('click',moveUp);
