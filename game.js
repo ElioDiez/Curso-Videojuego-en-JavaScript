@@ -4,10 +4,18 @@ const btnup = document.querySelector('#up');
 const btnleft = document.querySelector('#left');
 const btndown = document.querySelector('#down');
 const btnright = document.querySelector('#right');
+const spanLives = document.querySelector('#lives'); 
+const spanTime = document.querySelector('#time');
+
 
 let canvasSize;
 let elementSize;
 let level = 0;
+let lives=3;
+
+let timeInterval;
+let timeStart;
+let timePlayer;
 
 const playerPosition = {
   x:undefined,
@@ -48,11 +56,17 @@ function startGame() {
   if(!map){
     gameWin();
     return
+  } 
+  if (!timeStart) {
+    timeStart = Date.now();
+    timeInterval = setInterval(showTime, 100);
   }
 
   const mapRows = map.trim().split('\n');
   const mapColums = mapRows.map(row => row.trim().split(''));
  // console.log(map,mapRows,mapColums);
+
+ showLives();
 
  obstaclePositions =[]; 
  game.clearRect(0,0,canvasSize, canvasSize);
@@ -113,6 +127,15 @@ function movePlayer(){
 function levelColision(){
   playerPosition.x=undefined;
   playerPosition.y=undefined;
+  lives--;
+
+
+  if(lives<=0){
+    window.alert('GAME OVER, Try again!');
+    level=0;
+    lives=4;
+    startGame();
+  }
   startGame();
 }
 function levelWin() {
@@ -125,6 +148,14 @@ function gameWin(){
   window.alert('¡LO LOGRASTES! No hay más misiones, 👩‍🚀👨‍🚀💃🕺🎊🎊')
 
 }
+function showLives() {
+  const hardsArray = Array(lives).fill(emojis['HEART'])
+  spanLives.innerHTML= hardsArray;
+};
+function showTime() {
+  spanTime.innerHTML = Date.now() - timeStart;
+}
+
 
   btnup.addEventListener('click',moveUp);
   btnleft.addEventListener('click',moveLeft);
