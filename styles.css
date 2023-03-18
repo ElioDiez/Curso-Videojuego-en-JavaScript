@@ -84,4 +84,5 @@ canvas {
   @media (max-width: 440px) {
     button { margin-top: 25px; }
     #up, #down { margin-left: 100%; margin-right: 100%; }
+    .marcador {display: flex important!; flex-wrap: wrap; width: 100%; margin: 0; position: relative;}
   }

@@ -40,16 +40,18 @@ window.addEventListener('resize',setCanvasSize);
 function setCanvasSize() {
 
   if (window.innerHeight>window.innerWidth){
-    canvasSize = window.innerWidth * 0.8;
+    canvasSize = window.innerWidth * 0.7;
   }else{
-    canvasSize = window.innerHeight * 0.8;
+    canvasSize = window.innerHeight * 0.7;
   };
+  canvasSize= Number(canvasSize.toFixed(0));
 
   canvas.setAttribute('width',canvasSize);
   canvas.setAttribute('height', canvasSize);
 
   elementSize = canvasSize / 10.3;
-
+  playerPosition.x= undefined;
+  playerPosition.y= undefined;
   startGame();
 }
 function startGame() {
