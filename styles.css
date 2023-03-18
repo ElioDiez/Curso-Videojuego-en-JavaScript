@@ -73,6 +73,12 @@ canvas {
     text-align: center;
     padding-top: 15px;
   }
+  #titulillo {
+    border-bottom: 1 px solid chocolate;
+    background-color: black;
+    color:rgb(166, 166, 199);
+    padding-bottom: 10px ;
+  }
 
   
   @media (max-width: 440px) {
