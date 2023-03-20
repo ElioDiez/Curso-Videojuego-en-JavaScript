@@ -50,6 +50,7 @@ function setCanvasSize() {
   canvas.setAttribute('height', canvasSize);
 
   elementSize = canvasSize / 10.3;
+  elementSize = Number(elementSize.toFixed(2));
   playerPosition.x= undefined;
   playerPosition.y= undefined;
   startGame();
@@ -79,7 +80,7 @@ function startGame() {
  showLives();
 
  obstaclePositions =[]; 
- game.clearRect(0,0,canvasSize, canvasSize);
+ game.clearRect(0,0,canvasSize, canvasSize); 
 
   mapColums.forEach((row,rowI) => {
     row.forEach( (col,colI) =>{
@@ -150,9 +151,8 @@ function levelColision(){
   playerPosition.x=undefined;
   playerPosition.y=undefined;
   lives--;
-
-
   if(lives<=0){
+    
     window.alert('GAME OVER, Try again!');
     level=0;
     lives=4;
@@ -199,7 +199,6 @@ function showTime() {
 function showRecord() {
   spanRecord.innerHTML = localStorage.getItem('record_time');
 }
-
 
   btnup.addEventListener('click',moveUp);
   btnleft.addEventListener('click',moveLeft);
